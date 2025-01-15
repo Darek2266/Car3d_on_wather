@@ -115,15 +115,34 @@ import * as THREE					from "three";
 					//--------------------------------------------------
 					
 					this.controls						= new this.OrbitControls(this.camera, this.renderer.domElement);
+					
 					this.controls.autoRotate			= false;
-					this.controls.autoRotateSpeed		= false;
+					this.controls.autoRotateSpeed			= false;
+					this.controls.target.set(0, -0.35, 0);
+					this.controls.maxPolarAngle	= Math.PI * 0.48;
 					this.controls.minDistance			= 11.6;
-					this.controls.maxDistance			= 23.8;
+					this.controls.maxDistance			= 23.6;
 					this.controls.enablePan				= false;
 					this.controls.enableZoom			= true;
 					this.controls.enableDamping			= true;
 					this.controls.dampingFactor			= 0.28;	// współczynnik tłumienia
-					this.controls.update();	window.addEventListener
+					this.controls.update();
+					
+					this.controls.addEventListener
+					(
+						'change', event => 
+						{  
+							if(debug == true) 
+							{
+							let camera = controls.object; document.getElementById('debug').innerHTML 
+							= 
+							'camera position x,y,z: ' + Flo2Dec(camera.position.x, 2)			+ ',' + Flo2Dec(camera.position.y, 2)			+ ',' + Flo2Dec(camera.position.z, 2) + '<br/>' + 
+							'camera rotation x,y,z: ' + Flo2Dec(Rad2Deg(camera.rotation.x), 2)	+ ',' + Flo2Dec(Rad2Deg(camera.rotation.y), 2)	+ ',' + Flo2Dec(Rad2Deg(camera.rotation.z), 2);
+							}
+						}
+					);
+
+					window.addEventListener					
 					(
 						'resize', function ()
 						{
